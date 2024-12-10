@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/nunitoblack"
+        android:fontStyle="normal" />
+
+    <font android:font="@font/nunito_bold" />
+    <font android:font="@font/nunito_bolditalic" />
+    <font android:font="@font/nunito_extrabold" />
+    <font android:font="@font/nunito_extrabolditalic" />
+    <font android:font="@font/nunito_semibold"/>
+</font-family>
