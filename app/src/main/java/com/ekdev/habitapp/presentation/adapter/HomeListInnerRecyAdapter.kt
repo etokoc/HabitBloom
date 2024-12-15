@@ -3,6 +3,7 @@ package com.ekdev.habitapp.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,19 @@ class HomeListInnerAdapter :
     inner class ViewHolder(private val binding: HomeCheckboxStyleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(habit: Habit) {
-            binding.tvTitle.text = habit.name
+            binding.apply {
+                tvTitle.text = habit.name
+                rootContainer.apply {
+                    isSelected = checkbox.root.isChecked
+                    checkbox.root.setOnCheckedChangeListener { _, isChecked ->
+                        isSelected = isChecked
+                    }
+                    rootView.setOnClickListener {
+                        checkbox.root.isChecked = !isSelected
+                    }
+                }
+
+            }
         }
     }
 
