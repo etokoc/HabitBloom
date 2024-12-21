@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        // initUI()
         initData()
         return binding.root
     }
@@ -53,19 +52,4 @@ class HomeFragment : Fragment() {
         list.add(todayHabits)
         return list
     }
-
-    /*private fun initUI() {
-        binding.apply {
-            seeAllButton.setGradientColor(
-                intArrayOf(
-                    resources.getColor(
-                        R.color.orange_start_color,
-                        null
-                    ), resources.getColor(R.color.orange_end_color, null)
-                )
-            )
-        }
-    }*/
-
-
 }
