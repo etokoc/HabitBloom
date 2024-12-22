@@ -5,18 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentHomeBinding
 import com.ekdev.habitapp.domain.model.CardItem
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.adapter.HomeListAdapter
-import com.ekdev.habitapp.util.setGradientColor
+import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel by viewModels<HabitViewModel>()
+    private lateinit var adapter: HomeListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -26,54 +32,48 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        initData()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+        initData()
     }
 
     private fun initData() {
         binding.apply {
-            val adapter = HomeListAdapter().apply {
-                submitList(getCards())
-            }
-            recyclerView.apply {
-                this.adapter = adapter
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                isNestedScrollingEnabled = false
+            if (!::adapter.isInitialized) {
+                adapter = HomeListAdapter()
+                recyclerView.apply {
+                    adapter = this@HomeFragment.adapter
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    isNestedScrollingEnabled = false
+                }
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        showAddHabitDialog()
+    private fun initUI() {
+        binding.apply {
+            btnAddFab.setOnClickListener {
+                showAddHabitDialog()
+            }
+        }
+        viewModel.habits.observe(viewLifecycleOwner) { habits ->
+            fillCards(habits)
+        }
+        viewModel.getHabits()
     }
 
-    private fun getCards(): List<CardItem<Habit>> {
-        val list = ArrayList<CardItem<Habit>>()
-        val todayHabitList = ArrayList<Habit>()
-        val yourGoals = ArrayList<Habit>()
-        todayHabitList.add(Habit(1, "Araba sür", "", false))
-        todayHabitList.add(Habit(2, "Okula git", "", false))
-        todayHabitList.add(Habit(3, "Okula git", "", false))
-        todayHabitList.add(Habit(1, "Okula git", "", false))
-        todayHabitList.add(Habit(1, "Okula git", "", false))
-        todayHabitList.add(Habit(1, "Okula git", "", false))
-        todayHabitList.add(Habit(1, "Okula git", "", false))
-
-
-        yourGoals.add(Habit(3, "Okula git", "", false))
-        yourGoals.add(Habit(1, "Okula git", "", false))
-        yourGoals.add(Habit(1, "Okula git", "", false))
-        yourGoals.add(Habit(1, "Okula git", "", false))
-        yourGoals.add(Habit(1, "Okula git", "", false))
-
-        val todayHabits = CardItem<Habit>("Today Habit", todayHabitList)
-        val yourGoalss = CardItem<Habit>("Your Goals", yourGoals)
-        list.add(todayHabits)
-        list.add(yourGoalss)
-        return list
+    private fun fillCards(habits: List<Habit>? = null) {
+        val todayHabits = CardItem(getString(R.string.today_habit), habits ?: emptyList())
+        val yourGoals = CardItem(getString(R.string.your_goals), habits ?: emptyList())
+        val mainCardList = listOf(todayHabits, yourGoals)
+        adapter.submitList(mainCardList)
     }
+
 
     private fun showAddHabitDialog() {
         val dialogFragment = AddHabitFragment()

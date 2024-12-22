@@ -10,9 +10,11 @@ import com.ekdev.habitapp.domain.usecase.DeleteHabitUseCase
 import com.ekdev.habitapp.domain.usecase.GetByIdHabitUseCase
 import com.ekdev.habitapp.domain.usecase.GetHabitUseCase
 import com.ekdev.habitapp.domain.usecase.UpdateHabitUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class HabitViewModel @Inject constructor(
     private val getHabitUseCase: GetHabitUseCase,
     private val addHabitUseCase: AddHabitUseCase,
@@ -23,12 +25,11 @@ class HabitViewModel @Inject constructor(
     ViewModel() {
     private val _habits = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> get() = _habits
-
-
     private val _habit = MutableLiveData<Habit?>()
+
     val habit: LiveData<Habit?> get() = _habit
 
-    fun loadHabits() {
+    fun getHabits() {
         viewModelScope.launch {
             _habits.value = getHabitUseCase()
         }

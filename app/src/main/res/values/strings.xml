@@ -11,4 +11,6 @@
     <string name="habit_type">Habit Type</string>
     <string name="period">Period</string>
     <string name="create_new">Create New</string>
+    <string name="today_habit">Today Habit</string>
+    <string name="your_goals">Your Goals</string>
 </resources>

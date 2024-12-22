@@ -1,17 +1,17 @@
 package com.ekdev.habitapp.presentation.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentAddHabitBinding
+import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddHabitFragment : DialogFragment() {
     private val viewModel: HabitViewModel by viewModels()
     private lateinit var binding: FragmentAddHabitBinding
@@ -27,12 +27,31 @@ class AddHabitFragment : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
+        initUI()
+    }
 
-        dialog?.window?.let {window->
+    private fun initUI() {
+        dialog?.window?.let { window ->
             val windowManager = window.attributes
             windowManager.width = ViewGroup.LayoutParams.MATCH_PARENT
             windowManager.height = ViewGroup.LayoutParams.WRAP_CONTENT
             window.attributes = windowManager
         }
+        binding.apply {
+            btnCloseDialog.setOnClickListener {
+                dismiss()
+            }
+            btnAddHabit.setOnClickListener {
+                addHabit()
+            }
+        }
     }
+
+    private fun addHabit() {
+        val habitName = binding.editTextHabitName.text.toString()
+        val habitGoal = binding.editTextHabitGoal.text.toString()
+        viewModel.addHabit(Habit(name = habitName, description = habitGoal, isCompleted = false))
+        dismiss()
+    }
+
 }

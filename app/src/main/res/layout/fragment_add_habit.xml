@@ -57,6 +57,7 @@
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_habit_goal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:theme="@style/CustomDialogInput" />
@@ -81,6 +82,7 @@
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_habit_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:theme="@style/CustomDialogInput" />
@@ -116,13 +118,14 @@
                 android:text="@string/habit_type" />
 
             <Spinner
-                android:theme="@style/CustomSpinnerStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:theme="@style/CustomSpinnerStyle" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_habit"
             style="@style/CustomMainButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
