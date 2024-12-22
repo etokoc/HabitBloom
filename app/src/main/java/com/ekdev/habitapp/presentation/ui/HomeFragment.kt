@@ -46,10 +46,26 @@ class HomeFragment : Fragment() {
     private fun getCards(): List<CardItem<Habit>> {
         val list = ArrayList<CardItem<Habit>>()
         val todayHabitList = ArrayList<Habit>()
+        val yourGoals = ArrayList<Habit>()
         todayHabitList.add(Habit(1, "Araba sür", "", false))
+        todayHabitList.add(Habit(2, "Okula git", "", false))
+        todayHabitList.add(Habit(3, "Okula git", "", false))
         todayHabitList.add(Habit(1, "Okula git", "", false))
+        todayHabitList.add(Habit(1, "Okula git", "", false))
+        todayHabitList.add(Habit(1, "Okula git", "", false))
+        todayHabitList.add(Habit(1, "Okula git", "", false))
+
+
+        yourGoals.add(Habit(3, "Okula git", "", false))
+        yourGoals.add(Habit(1, "Okula git", "", false))
+        yourGoals.add(Habit(1, "Okula git", "", false))
+        yourGoals.add(Habit(1, "Okula git", "", false))
+        yourGoals.add(Habit(1, "Okula git", "", false))
+
         val todayHabits = CardItem<Habit>("Today Habit", todayHabitList)
+        val yourGoalss = CardItem<Habit>("Your Goals", yourGoals)
         list.add(todayHabits)
+        list.add(yourGoalss)
         return list
     }
 }

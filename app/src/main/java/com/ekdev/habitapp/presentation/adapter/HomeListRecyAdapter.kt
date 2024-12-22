@@ -1,7 +1,6 @@
 package com.ekdev.habitapp.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,9 @@ import com.ekdev.habitapp.util.setGradientColor
 class HomeListAdapter :
     ListAdapter<CardItem<Habit>, HomeListAdapter.HomeListViewHolder>(ListItemDiffCallback()) {
 
+    private var isExpanded = false
+
+
     inner class HomeListViewHolder(private val binding: HomeListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val innerAdapter = HomeListInnerAdapter()
@@ -27,6 +29,17 @@ class HomeListAdapter :
                     binding.root.context, LinearLayoutManager.VERTICAL, false
                 )
                 adapter = innerAdapter
+            }
+
+            binding.seeAllButton.setOnClickListener {
+                isExpanded = !isExpanded
+                innerAdapter.setExpanded(isExpanded)
+                if (isExpanded) {
+                    binding.seeAllButton.text = binding.root.context.getString(R.string.see_less)
+                } else {
+                    binding.seeAllButton.text = binding.root.context.getString(R.string.see_all)
+                }
+
             }
         }
 

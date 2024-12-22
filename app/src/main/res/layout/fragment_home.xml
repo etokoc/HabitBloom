@@ -1,126 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="13dp"
-    android:layout_marginTop="18dp"
-    android:layout_marginRight="13dp"
-    android:background="@color/page_bg_white"
+    android:fillViewport="true"
     tools:context=".presentation.ui.HomeFragment">
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Sun, 1 March 2024"
-        android:textColor="@color/main_black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tvNameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Hello, Susy!"
-        android:textColor="@color/main_black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDate" />
-
-    <FrameLayout
-        android:id="@+id/banner"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvNameTitle">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="13dp"
+        android:background="@color/page_bg_white">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/card_bg" />
-
-        <ImageView
-            android:id="@+id/calendar"
+        <TextView
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="31dp"
-            android:background="@color/transparent"
-            android:elevation="100dp"
-            android:src="@drawable/calendar_icon"
-            android:translationX="20dp"
-            android:translationY="30dp" />
+            android:fontFamily="@font/nunito_bold"
+            android:text="Sun, 1 March 2024"
+            android:textColor="@color/main_black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Hello, Susy!"
+            android:textColor="@color/main_black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+        <FrameLayout
+            android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingHorizontal="18dp"
-            android:paddingVertical="24dp"
-            android:orientation="horizontal">
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameTitle">
 
-            <include
-                android:id="@+id/customMainProgressBar"
-                layout="@layout/custom_progress_bar"
-                android:layout_width="150dp"
+            <ImageView
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="0dp"/>
+                android:layout_margin="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/card_bg" />
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="31dp"
+                android:background="@color/transparent"
+                android:elevation="100dp"
+                android:src="@drawable/calendar_icon"
+                android:translationX="20dp"
+                android:translationY="30dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="0dp"
-                android:orientation="vertical"
-                android:padding="0dp">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="24dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <include
+                    android:id="@+id/customMainProgressBar"
+                    layout="@layout/custom_progress_bar"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="0dp"
-                    android:fontFamily="@font/nunito_bold"
-                    android:includeFontPadding="false"
-                    android:text="3 of 5 habits"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:layout_marginTop="0dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="0dp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:includeFontPadding="false"
-                    android:text="completed today!"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:orientation="vertical"
+                    android:padding="0dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:fontFamily="@font/nunito_bold"
+                        android:includeFontPadding="false"
+                        android:text="3 of 5 habits"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:fontFamily="@font/nunito_medium"
+                        android:includeFontPadding="false"
+                        android:text="completed today!"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </FrameLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/banner"
+            tools:listitem="@layout/home_list_item" />
 
-    </FrameLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/banner"
-        tools:listitem="@layout/home_list_item" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
