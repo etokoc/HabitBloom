@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="16dp"
     android:background="@color/page_bg_white"
+    android:paddingVertical="16dp"
     tools:context=".presentation.ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -23,8 +23,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/CustomBottomNavView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="unlabeled"
+        android:paddingVertical="0dp"
+        android:paddingHorizontal="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

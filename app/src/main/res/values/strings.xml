@@ -4,4 +4,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="see_all">See all</string>
     <string name="see_less">See less</string>
+    <string name="add_item">add item</string>
+    <string name="create_new_habit_goal">Create New Habit Goal</string>
+    <string name="your_goal">Your Goal</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="habit_type">Habit Type</string>
+    <string name="period">Period</string>
+    <string name="create_new">Create New</string>
 </resources>

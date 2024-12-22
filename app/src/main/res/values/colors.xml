@@ -10,4 +10,8 @@
     <color name="success_green_bg_color">#EDFFF4</color>
     <color name="green_text_color">#37C871</color>
     <color name="gray_stroke_color">#666666</color>
+    <color name="gray_text_color">#838383</color>
+    <color name="un_selected_item_color">#FBFBFB</color>
+    <color name="dialog_bg_color">#FCFCFF</color>
+    <color name="spinner_bg_color">#E7E7E7</color>
 </resources>

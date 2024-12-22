@@ -37,10 +37,16 @@ class HomeFragment : Fragment() {
             }
             recyclerView.apply {
                 this.adapter = adapter
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 isNestedScrollingEnabled = false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showAddHabitDialog()
     }
 
     private fun getCards(): List<CardItem<Habit>> {
@@ -67,5 +73,10 @@ class HomeFragment : Fragment() {
         list.add(todayHabits)
         list.add(yourGoalss)
         return list
+    }
+
+    private fun showAddHabitDialog() {
+        val dialogFragment = AddHabitFragment()
+        dialogFragment.show(requireActivity().supportFragmentManager, "AddHabitFragment")
     }
 }

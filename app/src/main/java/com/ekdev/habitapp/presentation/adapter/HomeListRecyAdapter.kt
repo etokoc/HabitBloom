@@ -1,6 +1,8 @@
 package com.ekdev.habitapp.presentation.adapter
 
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +55,7 @@ class HomeListAdapter :
                         ), itemView.context.getColor(R.color.orange_end_color)
                     )
                 )
+                recyclerView.addItemDecoration(SpacingItemDecoration(bottom = 66))
             }
             innerAdapter.submitList(cardItem.dataList)
         }
@@ -80,4 +83,32 @@ class HomeListAdapter :
             return oldItem.title == newItem.title
         }
     }
+}
+
+class SpacingItemDecoration(
+    private val top: Int? = null,
+    private val bottom: Int? = null,
+    private val left: Int? = null,
+    private val right: Int? = null
+) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        bottom?.let {
+            outRect.bottom = it
+        }
+        top?.let {
+            outRect.top = it
+        }
+        left?.let {
+            outRect.left = it
+        }
+        right?.let {
+            outRect.right = it
+        }
+    }
+
 }
