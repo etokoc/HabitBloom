@@ -13,4 +13,7 @@
     <string name="create_new">Create New</string>
     <string name="today_habit">Today Habit</string>
     <string name="your_goals">Your Goals</string>
+    <string name="ok">OK</string>
+    <string name="done">Done!</string>
+    <string name="new_habit_goal_has_added_let_s_do_the_best_to_achieve_your_goal">New Habit Goal has added Let’s do the best to achieve your goal!</string>
 </resources>

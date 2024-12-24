@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel by viewModels<HabitViewModel>()
+    private val viewModel by activityViewModels<HabitViewModel>()
     private lateinit var adapter: HomeListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,22 +36,20 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUI()
+    override fun onResume() {
+        super.onResume()
         initData()
+        initUI()
     }
 
     private fun initData() {
         binding.apply {
-            if (!::adapter.isInitialized) {
-                adapter = HomeListAdapter()
-                recyclerView.apply {
-                    adapter = this@HomeFragment.adapter
-                    layoutManager =
-                        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                    isNestedScrollingEnabled = false
-                }
+            adapter = HomeListAdapter()
+            recyclerView.apply {
+                adapter = this@HomeFragment.adapter
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                isNestedScrollingEnabled = false
             }
         }
     }

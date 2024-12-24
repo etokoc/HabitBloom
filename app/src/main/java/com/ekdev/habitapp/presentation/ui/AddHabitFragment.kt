@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentAddHabitBinding
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
@@ -36,6 +38,7 @@ class AddHabitFragment : DialogFragment() {
             windowManager.width = ViewGroup.LayoutParams.MATCH_PARENT
             windowManager.height = ViewGroup.LayoutParams.WRAP_CONTENT
             window.attributes = windowManager
+            window.setBackgroundDrawableResource(android.R.color.transparent)
         }
         binding.apply {
             btnCloseDialog.setOnClickListener {
@@ -52,6 +55,7 @@ class AddHabitFragment : DialogFragment() {
         val habitGoal = binding.editTextHabitGoal.text.toString()
         viewModel.addHabit(Habit(name = habitName, description = habitGoal, isCompleted = false))
         dismiss()
+        findNavController().navigate(R.id.successAddHabitFragment)
     }
 
 }

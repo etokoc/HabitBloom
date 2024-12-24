@@ -37,8 +37,8 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="CustomDialogInput">
-        <item name="background">@color/white</item>
+    <style name="CustomDialogInput" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="backgroundTint">@color/white</item>
     </style>
 
     <style name="CustomMainButtonStyle">
