@@ -16,4 +16,9 @@
     <string name="ok">OK</string>
     <string name="done">Done!</string>
     <string name="new_habit_goal_has_added_let_s_do_the_best_to_achieve_your_goal">New Habit Goal has added Let’s do the best to achieve your goal!</string>
+    <string name="settings">Settings</string>
+    <string name="account">Account</string>
+    <string name="term_and_condition">Term and Condition</string>
+    <string name="policy">Policy</string>
+    <string name="about_app">About App</string>
 </resources>
