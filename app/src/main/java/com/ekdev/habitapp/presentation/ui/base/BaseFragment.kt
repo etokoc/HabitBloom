@@ -1,11 +1,17 @@
 package com.ekdev.habitapp.presentation.ui.base
 
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.ekdev.habitapp.R
 
 open class BaseFragment : Fragment() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showBottomNavigationView()
+    }
 
     open fun showFullUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

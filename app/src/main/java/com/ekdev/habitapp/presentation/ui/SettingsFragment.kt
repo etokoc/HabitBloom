@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentSettingsBinding
+import com.ekdev.habitapp.presentation.ui.base.BaseFragment
 
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : BaseFragment() {
     private lateinit var binding: FragmentSettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

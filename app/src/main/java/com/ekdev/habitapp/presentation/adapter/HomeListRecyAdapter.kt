@@ -14,7 +14,7 @@ import com.ekdev.habitapp.domain.model.CardItem
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.util.setGradientColor
 
-class HomeListAdapter :
+class HomeListAdapter(private var onItemClicked: ((Habit) -> Unit)? = null) :
     ListAdapter<CardItem<Habit>, HomeListAdapter.HomeListViewHolder>(ListItemDiffCallback()) {
 
     private var isExpanded = false
@@ -22,7 +22,7 @@ class HomeListAdapter :
 
     inner class HomeListViewHolder(private val binding: HomeListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val innerAdapter = HomeListInnerAdapter()
+        private val innerAdapter = HomeListInnerAdapter(onItemClicked = onItemClicked)
 
         init {
             binding.recyclerView.apply {
@@ -57,6 +57,7 @@ class HomeListAdapter :
                 )
                 recyclerView.addItemDecoration(SpacingItemDecoration(bottom = 66))
             }
+            innerAdapter.setType(cardItem.cardType)
             innerAdapter.submitList(cardItem.dataList)
         }
     }
@@ -85,6 +86,7 @@ class HomeListAdapter :
     }
 }
 
+//Spacing for margin apply to recyclerview
 class SpacingItemDecoration(
     private val top: Int? = null,
     private val bottom: Int? = null,

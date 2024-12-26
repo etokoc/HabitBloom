@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentHomeBinding
 import com.ekdev.habitapp.domain.model.CardItem
+import com.ekdev.habitapp.domain.model.EnumCardType
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.adapter.HomeListAdapter
+import com.ekdev.habitapp.presentation.ui.base.BaseFragment
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by activityViewModels<HabitViewModel>()
@@ -44,7 +46,9 @@ class HomeFragment : Fragment() {
 
     private fun initData() {
         binding.apply {
-            adapter = HomeListAdapter()
+            adapter = HomeListAdapter(onItemClicked = { updatedHabit ->
+                viewModel.updateHabit(updatedHabit)
+            });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter
                 layoutManager =
@@ -67,8 +71,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun fillCards(habits: List<Habit>? = null) {
-        val todayHabits = CardItem(getString(R.string.today_habit), habits ?: emptyList())
-        val yourGoals = CardItem(getString(R.string.your_goals), habits ?: emptyList())
+        val todayHabits = CardItem(getString(R.string.today_habit), habits ?: emptyList(),EnumCardType.TODAY_HABIT_CARD)
+        val yourGoals = CardItem(getString(R.string.your_goals), habits ?: emptyList(),EnumCardType.YOUR_GOALS_CARD)
         val mainCardList = listOf(todayHabits, yourGoals)
         adapter.submitList(mainCardList)
     }
