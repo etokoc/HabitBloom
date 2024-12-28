@@ -1,16 +1,20 @@
 package com.ekdev.habitapp.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.*
+import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.HomeCheckboxStyleItemBinding
 import com.ekdev.habitapp.databinding.HomeProgressStyleItemBinding
 import com.ekdev.habitapp.domain.model.EnumCardType
 import com.ekdev.habitapp.domain.model.Habit
 
-class HomeListInnerAdapter(private var onItemClicked: ((Habit) -> Unit)? = null
+class HomeListInnerAdapter(
+    private var onItemClicked: ((Habit) -> Unit)? = null
 ) :
     ListAdapter<Habit, ViewHolder>(ListItemDiffCallback()) {
 
@@ -42,6 +46,9 @@ class HomeListInnerAdapter(private var onItemClicked: ((Habit) -> Unit)? = null
                         checkbox.root.isChecked = !isSelected
                         clickItem(habit, isSelected)
                     }
+                    btnDetail.root.setOnClickListener {
+                        showDetailPopup(it, habit)
+                    }
                 }
             }
         }
@@ -52,11 +59,31 @@ class HomeListInnerAdapter(private var onItemClicked: ((Habit) -> Unit)? = null
         fun bind(habit: Habit) {
             binding.apply {
                 tvTitle.text = habit.description
-                rootContainer.apply {
-
+                btnDetail.root.setOnClickListener {
+                    showDetailPopup(it, habit)
                 }
             }
         }
+    }
+
+
+    private fun showDetailPopup(root: View, habit: Habit) {
+        val popupMenu = PopupMenu(root.context, root)
+        popupMenu.inflate(R.menu.detail_menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.edit -> {
+                    true
+                }
+
+                R.id.delete -> {
+                    true
+                }
+
+                else -> false
+            }
+        }
+        popupMenu.show()
     }
 
     private fun clickItem(habit: Habit, checked: Boolean) {

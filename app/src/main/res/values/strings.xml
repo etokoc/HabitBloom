@@ -22,4 +22,6 @@
     <string name="policy">Policy</string>
     <string name="about_app">About App</string>
     <string name="everyday">Everyday</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>
