@@ -2,17 +2,27 @@ package com.ekdev.habitapp.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.ekdev.habitapp.data.local.HabitDao
+import com.ekdev.habitapp.data.local.dao.HabitDao
 import com.ekdev.habitapp.data.local.HabitDatabase
-import com.ekdev.habitapp.data.local.HabitLocalDataSource
+import com.ekdev.habitapp.data.local.dao.GoalDao
+import com.ekdev.habitapp.data.local.dao.HabitLogDao
+import com.ekdev.habitapp.data.local.datasource.GoalLocalDataSource
+import com.ekdev.habitapp.data.local.datasource.HabitLocalDataSource
+import com.ekdev.habitapp.data.local.datasource.HabitLogLocalDataSource
+import com.ekdev.habitapp.data.repository.GoalRepositoryImpl
+import com.ekdev.habitapp.data.repository.HabitLogRepositoryImpl
 import com.ekdev.habitapp.data.repository.HabitRepositoryImpl
+import com.ekdev.habitapp.domain.mapper.GoalMapper
+import com.ekdev.habitapp.domain.mapper.HabitLogMapper
 import com.ekdev.habitapp.domain.mapper.HabitMapper
+import com.ekdev.habitapp.domain.repository.GoalRepository
+import com.ekdev.habitapp.domain.repository.HabitLogRepository
 import com.ekdev.habitapp.domain.repository.HabitRepository
-import com.ekdev.habitapp.domain.usecase.AddHabitUseCase
-import com.ekdev.habitapp.domain.usecase.DeleteHabitUseCase
-import com.ekdev.habitapp.domain.usecase.GetByIdHabitUseCase
-import com.ekdev.habitapp.domain.usecase.GetHabitUseCase
-import com.ekdev.habitapp.domain.usecase.UpdateHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.AddHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.DeleteHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.GetByIdHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.GetHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.UpdateHabitUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +47,16 @@ object AppModule {
         return habitDatabase.habitDao()
     }
 
+    @Provides
+    fun provideGoalDao(habitDatabase: HabitDatabase): GoalDao {
+        return habitDatabase.goalDao()
+    }
+
+    @Provides
+    fun provideHabitLogDao(habitDatabase: HabitDatabase): HabitLogDao {
+        return habitDatabase.habitLogDao()
+    }
+
 
     @Provides
     fun providesHabitRepository(
@@ -44,6 +64,22 @@ object AppModule {
         habitMapper: HabitMapper
     ): HabitRepository {
         return HabitRepositoryImpl(habitLocalDataSource, habitMapper)
+    }
+
+    @Provides
+    fun providesHabitLogRepository(
+        habitLogLocalDataSource: HabitLogLocalDataSource,
+        habitLogMapper: HabitLogMapper
+    ): HabitLogRepository {
+        return HabitLogRepositoryImpl(habitLogLocalDataSource, habitLogMapper)
+    }
+
+    @Provides
+    fun providesGoalRepository(
+        goalLocalDataSource: GoalLocalDataSource,
+        goalMapper: GoalMapper
+    ): GoalRepository {
+        return GoalRepositoryImpl(goalLocalDataSource, goalMapper)
     }
 
     @Provides

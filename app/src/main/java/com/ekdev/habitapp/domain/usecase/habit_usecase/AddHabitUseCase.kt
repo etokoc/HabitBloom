@@ -1,12 +1,12 @@
-package com.ekdev.habitapp.domain.usecase
+package com.ekdev.habitapp.domain.usecase.habit_usecase
 
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.domain.repository.HabitRepository
 import javax.inject.Inject
 
-class DeleteHabitUseCase @Inject constructor(private val repository: HabitRepository) {
+class AddHabitUseCase @Inject constructor(private val repository: HabitRepository) {
 
     suspend operator fun invoke(habit: Habit) {
-        repository.deleteHabit(habit)
+        repository.addHabit(habit)
     }
 }

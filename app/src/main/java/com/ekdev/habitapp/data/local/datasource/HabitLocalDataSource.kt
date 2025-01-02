@@ -1,7 +1,9 @@
-package com.ekdev.habitapp.data.local
+package com.ekdev.habitapp.data.local.datasource
 
 
 import com.ekdev.habitapp.data.entities.HabitEntity
+import com.ekdev.habitapp.data.local.dao.HabitDao
+import com.ekdev.habitapp.domain.model.HabitWithLogs
 import javax.inject.Inject
 
 class HabitLocalDataSource @Inject constructor(
@@ -26,5 +28,9 @@ class HabitLocalDataSource @Inject constructor(
 
     suspend fun deleteHabit(habitEntity: HabitEntity) {
         habitDao.deleteHabit(habitEntity)
+    }
+
+    suspend fun getHabitsWithLog(): List<HabitWithLogs> {
+       return habitDao.getHabitsWithLogs()
     }
 }

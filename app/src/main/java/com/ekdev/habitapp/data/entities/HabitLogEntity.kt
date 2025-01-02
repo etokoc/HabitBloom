@@ -6,18 +6,18 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "habits",
+    tableName = "habit_logs",
     foreignKeys = [ForeignKey(
-        entity = GoalEntity::class,
+        entity = HabitEntity::class,
         parentColumns = ["id"],
-        childColumns = ["goalId"],
+        childColumns = ["habitId"],
         onDelete = ForeignKey.CASCADE
     )],
-    indices = [Index("goalId")]
+    indices = [Index("habitId")]
 )
-data class HabitEntity(
-    @PrimaryKey(true) val id: Long? = 0,
-    val goalId: Int?,
-    val title: String? = null,
-    val periodType: String? = null
+data class HabitLogEntity(
+    @PrimaryKey(true) val id: Int = 0,
+    val habitId: Int,
+    val date: String,
+    val status: Boolean
 )

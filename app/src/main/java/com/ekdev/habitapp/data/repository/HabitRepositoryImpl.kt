@@ -1,8 +1,9 @@
 package com.ekdev.habitapp.data.repository
 
-import com.ekdev.habitapp.data.local.HabitLocalDataSource
+import com.ekdev.habitapp.data.local.datasource.HabitLocalDataSource
 import com.ekdev.habitapp.domain.mapper.HabitMapper
 import com.ekdev.habitapp.domain.model.Habit
+import com.ekdev.habitapp.domain.model.HabitWithLogs
 import com.ekdev.habitapp.domain.repository.HabitRepository
 import javax.inject.Inject
 
@@ -27,5 +28,9 @@ class HabitRepositoryImpl @Inject constructor(
 
     override suspend fun getByIdHabit(id: Long): Habit? {
         return habitLocalDataSource.getHabitById(id)?.let { habitMapper.toDomain(it) }
+    }
+
+    override suspend fun getHabitsWithLog(): List<HabitWithLogs> {
+        return habitLocalDataSource.getHabitsWithLog()
     }
 }

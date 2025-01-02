@@ -1,4 +1,4 @@
-package com.ekdev.habitapp.domain.usecase
+package com.ekdev.habitapp.domain.usecase.habit_usecase
 
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.domain.repository.HabitRepository

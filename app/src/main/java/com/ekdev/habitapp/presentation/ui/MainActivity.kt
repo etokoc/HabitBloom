@@ -5,16 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.ekdev.habitapp.R
-import com.ekdev.habitapp.data.local.HabitLocalDataSource
 import com.ekdev.habitapp.databinding.ActivityMainBinding
-import com.ekdev.habitapp.domain.model.Habit
-import com.ekdev.habitapp.domain.repository.HabitRepository
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import java.lang.Exception
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

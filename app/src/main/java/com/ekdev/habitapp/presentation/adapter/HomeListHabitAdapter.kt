@@ -9,14 +9,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.*
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.HomeCheckboxStyleItemBinding
-import com.ekdev.habitapp.databinding.HomeProgressStyleItemBinding
 import com.ekdev.habitapp.domain.model.EnumCardType
 import com.ekdev.habitapp.domain.model.Habit
+import com.ekdev.habitapp.domain.model.HabitWithLogs
+import com.ekdev.habitapp.presentation.adapter.HomeListHabitAdapter.TodayHabitViewHolder
 
-class HomeListInnerAdapter(
+class HomeListHabitAdapter(
     private var onItemClicked: ((Habit) -> Unit)? = null
 ) :
-    ListAdapter<Habit, ViewHolder>(ListItemDiffCallback()) {
+    ListAdapter<HabitWithLogs, TodayHabitViewHolder>(ListItemDiffCallback()) {
 
     companion object {
         const val MAX_ROW_COUNT: Int = 3
@@ -24,7 +25,7 @@ class HomeListInnerAdapter(
 
     private lateinit var _cardType: EnumCardType
     private var isExpanded = false
-    private var displayedList: List<Habit> = emptyList()
+    private var displayedList: List<HabitWithLogs> = emptyList()
 
     init {
         updateDisplayedList()
@@ -32,40 +33,28 @@ class HomeListInnerAdapter(
 
     inner class TodayHabitViewHolder(private val binding: HomeCheckboxStyleItemBinding) :
         ViewHolder(binding.root) {
-        fun bind(habit: Habit) {
+        fun bind(habit: HabitWithLogs) {
             binding.apply {
-                tvTitle.text = habit.name
+                tvTitle.text = habit.habit.title
                 rootContainer.apply {
-                    isSelected = habit.isCompleted
-                    checkbox.root.isChecked = habit.isCompleted
+                    // TODO: Habit withlog ile gelecek
+                    isSelected = false
+                    checkbox.root.isChecked = false
                     checkbox.root.setOnCheckedChangeListener { _, isChecked ->
                         isSelected = isChecked
-                        clickItem(habit, isChecked)
+                        clickItem(habit.habit, isChecked)
                     }
                     rootView.setOnClickListener {
                         checkbox.root.isChecked = !isSelected
-                        clickItem(habit, isSelected)
+                        clickItem(habit.habit, isSelected)
                     }
                     btnDetail.root.setOnClickListener {
-                        showDetailPopup(it, habit)
+                        showDetailPopup(it, habit.habit)
                     }
                 }
             }
         }
     }
-
-    inner class TodayGoalsViewHolder(private val binding: HomeProgressStyleItemBinding) :
-        ViewHolder(binding.root) {
-        fun bind(habit: Habit) {
-            binding.apply {
-                tvTitle.text = habit.description
-                btnDetail.root.setOnClickListener {
-                    showDetailPopup(it, habit)
-                }
-            }
-        }
-    }
-
 
     private fun showDetailPopup(root: View, habit: Habit) {
         val popupMenu = PopupMenu(root.context, root)
@@ -87,49 +76,30 @@ class HomeListInnerAdapter(
     }
 
     private fun clickItem(habit: Habit, checked: Boolean) {
-        val clickedHabit = Habit(habit.id, habit.name, habit.description, checked)
-        onItemClicked?.invoke(clickedHabit)
+        onItemClicked?.invoke(habit)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
+    ): TodayHabitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return when (_cardType) {
-            EnumCardType.YOUR_GOALS_CARD -> {
-                val binding = HomeProgressStyleItemBinding.inflate(
-                    inflater,
-                    parent,
-                    false
-                )
-                return TodayGoalsViewHolder(binding)
-            }
-
-            EnumCardType.TODAY_HABIT_CARD -> {
-                val binding = HomeCheckboxStyleItemBinding.inflate(
-                    inflater,
-                    parent,
-                    false
-                )
-                return TodayHabitViewHolder(binding)
-            }
-
-            else -> throw IllegalArgumentException("Invalid card type")
-        }
+        val binding = HomeCheckboxStyleItemBinding.inflate(
+            inflater,
+            parent,
+            false
+        )
+        return TodayHabitViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TodayHabitViewHolder, position: Int) {
         val habit = displayedList[position]
-        when (holder) {
-            is TodayGoalsViewHolder -> holder.bind(habit)
-            is TodayHabitViewHolder -> holder.bind(habit)
-        }
+        holder.bind(habit)
     }
 
     override fun getItemCount(): Int = displayedList.size
 
-    override fun submitList(list: List<Habit>?) {
+    override fun submitList(list: List<HabitWithLogs>?) {
         super.submitList(list)
         updateDisplayedList()
     }
@@ -148,12 +118,12 @@ class HomeListInnerAdapter(
         _cardType = cardType
     }
 
-    class ListItemDiffCallback : DiffUtil.ItemCallback<Habit>() {
-        override fun areItemsTheSame(oldItem: Habit, newItem: Habit): Boolean {
-            return oldItem.id == newItem.id
+    class ListItemDiffCallback : DiffUtil.ItemCallback<HabitWithLogs>() {
+        override fun areItemsTheSame(oldItem: HabitWithLogs, newItem: HabitWithLogs): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Habit, newItem: Habit): Boolean {
+        override fun areContentsTheSame(oldItem: HabitWithLogs, newItem: HabitWithLogs): Boolean {
             return oldItem == newItem
         }
     }

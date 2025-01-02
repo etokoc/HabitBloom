@@ -9,13 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentAddHabitBinding
+import com.ekdev.habitapp.domain.model.Goal
 import com.ekdev.habitapp.domain.model.Habit
-import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
+import com.ekdev.habitapp.domain.model.PeriodType
+import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddHabitFragment : DialogFragment() {
-    private val viewModel: HabitViewModel by viewModels()
+    private val goalViewModel: GoalViewModel by viewModels()
     private lateinit var binding: FragmentAddHabitBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,17 +47,26 @@ class AddHabitFragment : DialogFragment() {
                 dismiss()
             }
             btnAddHabit.setOnClickListener {
-                addHabit()
+                addHabitWithGoal()
             }
         }
     }
 
-    private fun addHabit() {
+    private fun addHabitWithGoal() {
         val habitName = binding.editTextHabitName.text.toString()
-        val habitGoal = binding.editTextHabitGoal.text.toString()
-        viewModel.addHabit(Habit(name = habitName, description = habitGoal, isCompleted = false))
-        dismiss()
-        findNavController().navigate(R.id.successAddHabitFragment)
+        val goalName = binding.editTextHabitGoal.text.toString()
+        goalViewModel.addGoalAndHabitUseCase(
+            Goal(
+                name = goalName,
+                isCompleted = false,
+                startDate = "",
+                endDate = ""
+            ), habit = Habit(
+                title = habitName, periodType = PeriodType.WEEKLY,
+            ), onSuccess = {
+                dismiss()
+                findNavController().navigate(R.id.successAddHabitFragment)
+            }, onError = {})
     }
 
 }

@@ -16,6 +16,8 @@ import com.ekdev.habitapp.domain.model.EnumCardType
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.adapter.HomeListAdapter
 import com.ekdev.habitapp.presentation.ui.base.BaseFragment
+import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
+import com.ekdev.habitapp.presentation.viewmodel.HabitLogViewModel
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +25,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel by activityViewModels<HabitViewModel>()
+    private val habitViewModel by activityViewModels<HabitViewModel>()
+    private val habitLogViewModel by activityViewModels<HabitLogViewModel>()
+    private val goalViewModel by activityViewModels<GoalViewModel>()
     private lateinit var adapter: HomeListAdapter
+    private lateinit var cardList: ArrayList<CardItem<*>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +45,15 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        cardList = arrayListOf()
         initData()
         initUI()
     }
 
     private fun initData() {
         binding.apply {
-            adapter = HomeListAdapter(onItemClicked = { updatedHabit ->
-                viewModel.updateHabit(updatedHabit)
+            adapter = HomeListAdapter({ habit ->
+                habitViewModel.updateHabit(habit)
             });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter
@@ -64,19 +70,13 @@ class HomeFragment : BaseFragment() {
                 showAddHabitDialog()
             }
         }
-        viewModel.habits.observe(viewLifecycleOwner) { habits ->
-            fillCards(habits)
+        habitViewModel.cardItems.observe(this) {
+            cardList.clear()
+            cardList.addAll(it)
+            adapter.submitList(cardList)
         }
-        viewModel.getHabits()
+        habitViewModel.loadCards()
     }
-
-    private fun fillCards(habits: List<Habit>? = null) {
-        val todayHabits = CardItem(getString(R.string.today_habit), habits ?: emptyList(),EnumCardType.TODAY_HABIT_CARD)
-        val yourGoals = CardItem(getString(R.string.your_goals), habits ?: emptyList(),EnumCardType.YOUR_GOALS_CARD)
-        val mainCardList = listOf(todayHabits, yourGoals)
-        adapter.submitList(mainCardList)
-    }
-
 
     private fun showAddHabitDialog() {
         val dialogFragment = AddHabitFragment()
