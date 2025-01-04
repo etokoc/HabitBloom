@@ -6,8 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ekdev.habitapp.domain.model.HabitLog
 import com.ekdev.habitapp.domain.usecase.habit_log_usecase.AddHabitLogUseCase
+import com.ekdev.habitapp.domain.usecase.habit_log_usecase.GetHabitLogForTodayUseCase
 import com.ekdev.habitapp.domain.usecase.habit_log_usecase.GetLogForDateUseCase
 import com.ekdev.habitapp.domain.usecase.habit_log_usecase.GetLogForHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_log_usecase.UpdateHabitLogUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.GetByIdHabitUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.GetHabitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +20,10 @@ import javax.inject.Inject
 class HabitLogViewModel @Inject constructor(
     private val addHabitLogUseCase: AddHabitLogUseCase,
     private val getLogForDateUseCase: GetLogForDateUseCase,
-    private val getLogForHabitUseCase: GetLogForHabitUseCase
+    private val getLogForHabitUseCase: GetLogForHabitUseCase,
+    private val getByIdHabitUseCase: GetByIdHabitUseCase,
+    private val updateHabitLogUseCase: UpdateHabitLogUseCase,
+    private val getHabitLogForTodayUseCase: GetHabitLogForTodayUseCase
 ) :
     ViewModel() {
     private val _habitLogs = MutableLiveData<List<HabitLog>>()
@@ -25,8 +32,9 @@ class HabitLogViewModel @Inject constructor(
 
     val goal: LiveData<HabitLog?> get() = _habitLog
 
-    fun addHabitLog(habitLog: HabitLog) {
+    fun addHabitLog(habitId: Long?) {
         viewModelScope.launch {
+            val habitLog = HabitLog(habitId = habitId?.toInt())
             addHabitLogUseCase(habitLog)
         }
     }
@@ -41,6 +49,23 @@ class HabitLogViewModel @Inject constructor(
         viewModelScope.launch {
             getLogForHabitUseCase(id).let {
                 _habitLogs.value = it
+            }
+        }
+    }
+
+    fun updateHabitLog(habitLog: HabitLog) {
+        viewModelScope.launch {
+            updateHabitLogUseCase(habitLog)
+        }
+    }
+
+    //Add or negation status of habit log
+    fun addOrUpdateHabitLog(habitId: Long) {
+        viewModelScope.launch {
+            getHabitLogForTodayUseCase(habitId = habitId.toInt())?.let {
+                updateHabitLog(it.copy(status = it.status?.not()))
+            } ?: run {
+                addHabitLog(habitId)
             }
         }
     }

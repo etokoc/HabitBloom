@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ekdev.habitapp.domain.model.Goal
 import com.ekdev.habitapp.domain.model.Habit
+import com.ekdev.habitapp.domain.model.PeriodType
 import com.ekdev.habitapp.domain.usecase.goal_usecase.AddGoalUseCase
 import com.ekdev.habitapp.domain.usecase.goal_usecase.DeleteGoalUseCase
 import com.ekdev.habitapp.domain.usecase.goal_usecase.GetAllGoalUseCase
 import com.ekdev.habitapp.domain.usecase.goal_usecase.GetGoalUseCase
-import com.ekdev.habitapp.domain.usecase.habit_log_usecase.GetLogForHabitUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.AddHabitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -50,19 +50,21 @@ class GoalViewModel @Inject constructor(
     }
 
     fun addGoalAndHabitUseCase(
-        goal: Goal,
-        habit: Habit,
+        goalName: String,
+        habitTitle: String,
+        habitPeriodType: PeriodType,
         onSuccess: () -> Unit,
         onError: (Throwable) -> Unit
     ) {
         viewModelScope.launch {
             try {
-                val goalID = addGoalUseCase(goal)
+
+                val goalID = addGoalUseCase(Goal(name = goalName, isCompleted = false))
                 addHabitUseCase(
                     Habit(
                         goalId = goalID.toInt(),
-                        title = habit.title,
-                        periodType = habit.periodType
+                        title = habitTitle,
+                        periodType = habitPeriodType
                     )
                 )
                 onSuccess()

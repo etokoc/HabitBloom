@@ -16,8 +16,8 @@ import androidx.room.PrimaryKey
     indices = [Index("habitId")]
 )
 data class HabitLogEntity(
-    @PrimaryKey(true) val id: Int = 0,
-    val habitId: Int,
-    val date: String,
-    val status: Boolean
+    @PrimaryKey(true) val id: Int? = 0,
+    val habitId: Int? = null,
+    val date: String? = null,
+    val status: Boolean? = null
 )

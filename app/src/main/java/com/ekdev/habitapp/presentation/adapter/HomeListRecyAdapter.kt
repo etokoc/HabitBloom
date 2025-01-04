@@ -18,7 +18,7 @@ import com.ekdev.habitapp.domain.model.HabitWithLogs
 import com.ekdev.habitapp.util.setGradientColor
 
 class HomeListAdapter(
-    private var onItemClickedForHabit: ((Habit) -> Unit)? = null,
+    private var onItemClickedForHabit: ((Habit,Boolean) -> Unit)? = null,
     private var onItemClickedForGoal: ((Goal) -> Unit)? = null
 ) :
     ListAdapter<CardItem<*>, HomeListAdapter.HomeListViewHolder>(ListItemDiffCallback()) {

@@ -15,7 +15,7 @@ import com.ekdev.habitapp.domain.model.HabitWithLogs
 import com.ekdev.habitapp.presentation.adapter.HomeListHabitAdapter.TodayHabitViewHolder
 
 class HomeListHabitAdapter(
-    private var onItemClicked: ((Habit) -> Unit)? = null
+    private var onItemClicked: ((Habit, Boolean) -> Unit)? = null
 ) :
     ListAdapter<HabitWithLogs, TodayHabitViewHolder>(ListItemDiffCallback()) {
 
@@ -38,8 +38,8 @@ class HomeListHabitAdapter(
                 tvTitle.text = habit.habit.title
                 rootContainer.apply {
                     // TODO: Habit withlog ile gelecek
-                    isSelected = false
-                    checkbox.root.isChecked = false
+                    isSelected = habit.isTodayCompleted ?: false
+                    checkbox.root.isChecked = isSelected
                     checkbox.root.setOnCheckedChangeListener { _, isChecked ->
                         isSelected = isChecked
                         clickItem(habit.habit, isChecked)
@@ -76,7 +76,7 @@ class HomeListHabitAdapter(
     }
 
     private fun clickItem(habit: Habit, checked: Boolean) {
-        onItemClicked?.invoke(habit)
+        onItemClicked?.invoke(habit, checked)
     }
 
     override fun onCreateViewHolder(

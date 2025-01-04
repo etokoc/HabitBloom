@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentAddHabitBinding
-import com.ekdev.habitapp.domain.model.Goal
-import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.domain.model.PeriodType
 import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,14 +54,7 @@ class AddHabitFragment : DialogFragment() {
         val habitName = binding.editTextHabitName.text.toString()
         val goalName = binding.editTextHabitGoal.text.toString()
         goalViewModel.addGoalAndHabitUseCase(
-            Goal(
-                name = goalName,
-                isCompleted = false,
-                startDate = "",
-                endDate = ""
-            ), habit = Habit(
-                title = habitName, periodType = PeriodType.WEEKLY,
-            ), onSuccess = {
+            goalName, habitName, PeriodType.WEEKLY, onSuccess = {
                 dismiss()
                 findNavController().navigate(R.id.successAddHabitFragment)
             }, onError = {})

@@ -2,6 +2,7 @@ package com.ekdev.habitapp.domain.mapper
 
 import com.ekdev.habitapp.data.entities.HabitLogEntity
 import com.ekdev.habitapp.domain.model.HabitLog
+import com.ekdev.habitapp.shared.extentions.toDate
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class HabitLogMapper @Inject constructor() : BaseMapper<HabitLogEntity, HabitLog
         return HabitLog(
             entity.id,
             entity.habitId,
-            date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(entity.date),
+            date = if(entity.date != null) entity.date.toString() else null,
             status = entity.status
         )
     }
@@ -21,7 +22,12 @@ class HabitLogMapper @Inject constructor() : BaseMapper<HabitLogEntity, HabitLog
     }
 
     override fun toEntity(domain: HabitLog): HabitLogEntity {
-        return HabitLogEntity(domain.id, domain.habitId, domain.date, domain.status)
+        return HabitLogEntity(
+            domain.id,
+            domain.habitId,
+            domain.date,
+            domain.status
+        )
     }
 
     override fun toEntityList(domains: List<HabitLog>): List<HabitLogEntity> {

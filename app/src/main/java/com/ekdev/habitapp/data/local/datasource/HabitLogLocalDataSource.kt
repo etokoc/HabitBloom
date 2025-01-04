@@ -17,6 +17,9 @@ class HabitLogLocalDataSource @Inject constructor(
         return habitLogDao.getLogsForHabit(id);
     }
 
+    suspend fun updateHabitLog(habitLogEntity: HabitLogEntity) {
+        habitLogDao.update(habitLogEntity)
+    }
    suspend fun addHabitLog(habitLogEntity: HabitLogEntity) {
         habitLogDao.insert(habitLogEntity)
     }

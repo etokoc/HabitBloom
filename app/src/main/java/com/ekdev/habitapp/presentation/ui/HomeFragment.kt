@@ -1,19 +1,13 @@
 package com.ekdev.habitapp.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentHomeBinding
 import com.ekdev.habitapp.domain.model.CardItem
-import com.ekdev.habitapp.domain.model.EnumCardType
-import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.presentation.adapter.HomeListAdapter
 import com.ekdev.habitapp.presentation.ui.base.BaseFragment
 import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
@@ -52,8 +46,8 @@ class HomeFragment : BaseFragment() {
 
     private fun initData() {
         binding.apply {
-            adapter = HomeListAdapter({ habit ->
-                habitViewModel.updateHabit(habit)
+            adapter = HomeListAdapter({ habit, isCompleted ->
+                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!)
             });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter

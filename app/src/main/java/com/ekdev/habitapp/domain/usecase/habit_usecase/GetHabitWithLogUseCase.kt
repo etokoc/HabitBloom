@@ -13,10 +13,10 @@ class GetHabitWithLogUseCase @Inject constructor(private val repository: HabitRe
 
         habitWithLogs.map { habitWithLogs ->
             val isTodayCompleted = habitWithLogs.logs.any { log ->
-                today.isSameDay(Date(log.date)) && log.status
+                today.isSameDay(Date(log.date)) && log.status == true
             }
-            habitWithLogs.copy(isTodayCompleted = isTodayCompleted)
+            habitWithLogs.isTodayCompleted = isTodayCompleted
         }
-        return repository.getHabitsWithLog()
+        return habitWithLogs
     }
 }

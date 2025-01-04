@@ -25,6 +25,10 @@ class HabitLogRepositoryImpl @Inject constructor(
         habitLogLocalDataSource.addHabitLog(habitLogEntity = habitLogMapper.toEntity(habitLog))
     }
 
+    override suspend fun updateHabitLog(habitLog: HabitLog) {
+        habitLogLocalDataSource.updateHabitLog(habitLogEntity = habitLogMapper.toEntity(habitLog))
+    }
+
     override suspend fun getLogsForHabit(habitId: Int): List<HabitLog> {
         return habitLogMapper.toDomainList(habitLogLocalDataSource.getLogsForHabit(habitId))
     }

@@ -1,13 +1,10 @@
 package com.ekdev.habitapp.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ekdev.habitapp.domain.model.CardItem
-import com.ekdev.habitapp.domain.model.EnumCardType
-import com.ekdev.habitapp.domain.model.Goal
 import com.ekdev.habitapp.domain.model.Habit
 import com.ekdev.habitapp.domain.model.HabitWithLogs
 import com.ekdev.habitapp.domain.usecase.combined_useacase.GetCombinedCardsUseCase
