@@ -53,17 +53,17 @@ class HabitLogViewModel @Inject constructor(
         }
     }
 
-    fun updateHabitLog(habitLog: HabitLog) {
+    private fun updateHabitLog(habitLog: HabitLog) {
         viewModelScope.launch {
             updateHabitLogUseCase(habitLog)
         }
     }
 
     //Add or negation status of habit log
-    fun addOrUpdateHabitLog(habitId: Long) {
+    fun addOrUpdateHabitLog(habitId: Long,checked:Boolean) {
         viewModelScope.launch {
             getHabitLogForTodayUseCase(habitId = habitId.toInt())?.let {
-                updateHabitLog(it.copy(status = it.status?.not()))
+                updateHabitLog(it.copy(status = checked))
             } ?: run {
                 addHabitLog(habitId)
             }

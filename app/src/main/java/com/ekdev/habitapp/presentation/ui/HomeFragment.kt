@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
     private fun initData() {
         binding.apply {
             adapter = HomeListAdapter({ habit, isCompleted ->
-                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!)
+                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!,isCompleted)
             });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter
