@@ -24,4 +24,7 @@
     <string name="everyday">Everyday</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="_21_days">21 days</string>
+    <string name="_1_month">1 Month</string>
+    <string name="_3_months">3 Months</string>
 </resources>

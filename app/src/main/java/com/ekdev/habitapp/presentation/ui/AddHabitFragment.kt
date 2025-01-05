@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentAddHabitBinding
-import com.ekdev.habitapp.domain.model.PeriodType
+import com.ekdev.habitapp.presentation.ui.custom_views.StepProgressView
 import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddHabitFragment : DialogFragment() {
     private val goalViewModel: GoalViewModel by viewModels()
     private lateinit var binding: FragmentAddHabitBinding
+    private var selectedStep: StepProgressView.StepEnum = StepProgressView.StepEnum.STEP_21_DAYS
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +27,6 @@ class AddHabitFragment : DialogFragment() {
         binding = FragmentAddHabitBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -47,6 +48,17 @@ class AddHabitFragment : DialogFragment() {
             btnAddHabit.setOnClickListener {
                 addHabitWithGoal()
             }
+            stepProgressView.setOnStepClickListener(object : StepProgressView.OnStepClickListener {
+                override fun onStepClicked(step: StepProgressView.StepEnum) {
+                    selectedStep = when (step) {
+                        StepProgressView.StepEnum.STEP_21_DAYS -> StepProgressView.StepEnum.STEP_21_DAYS
+
+                        StepProgressView.StepEnum.STEP_1_MONTH -> StepProgressView.StepEnum.STEP_1_MONTH
+
+                        StepProgressView.StepEnum.STEP_3_MONTH -> StepProgressView.StepEnum.STEP_3_MONTH
+                    }
+                }
+            })
         }
     }
 
@@ -54,7 +66,7 @@ class AddHabitFragment : DialogFragment() {
         val habitName = binding.editTextHabitName.text.toString()
         val goalName = binding.editTextHabitGoal.text.toString()
         goalViewModel.addGoalAndHabitUseCase(
-            goalName, habitName, PeriodType.WEEKLY, onSuccess = {
+            goalName, habitName, selectedStep, onSuccess = {
                 dismiss()
                 findNavController().navigate(R.id.successAddHabitFragment)
             }, onError = {})

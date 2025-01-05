@@ -9,13 +9,12 @@ import javax.inject.Inject
 class GetHabitWithLogUseCase @Inject constructor(private val repository: HabitRepository) {
     suspend operator fun invoke(): List<HabitWithLogs> {
         val habitWithLogs = repository.getHabitsWithLog()
-        val today = Date()
 
-        habitWithLogs.map { habitWithLogs ->
-            val isTodayCompleted = habitWithLogs.logs.any { log ->
-                today.isSameDay(Date(log.date)) && log.status == true
+        habitWithLogs.map { habitWithLogItem ->
+            val isTodayCompleted = habitWithLogItem.logs.any { log ->
+                Date().isSameDay(Date(log.date)) && log.status == true
             }
-            habitWithLogs.isTodayCompleted = isTodayCompleted
+            habitWithLogItem.isTodayCompleted = isTodayCompleted
         }
         return habitWithLogs
     }

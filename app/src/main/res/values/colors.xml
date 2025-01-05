@@ -14,4 +14,5 @@
     <color name="un_selected_item_color">#FBFBFB</color>
     <color name="dialog_bg_color">#FCFCFF</color>
     <color name="spinner_bg_color">#E7E7E7</color>
+    <color name="bold_green_text_color">#298A4E</color>
 </resources>

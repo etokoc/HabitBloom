@@ -77,4 +77,15 @@
         <item name="android:layout_height">48dp</item>
     </style>
 
+    <style name="CustomStepButtonStyle" parent="Widget.AppCompat.Button.Small">
+        <item name="android:background">@drawable/step_bg_item</item>
+        <item name="android:textColor">@color/step_text_color</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:width">100dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="fontFamily">@font/nunito_semibold</item>
+    </style>
+
 </resources>

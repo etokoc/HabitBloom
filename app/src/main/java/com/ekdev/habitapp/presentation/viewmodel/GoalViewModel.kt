@@ -12,6 +12,7 @@ import com.ekdev.habitapp.domain.usecase.goal_usecase.DeleteGoalUseCase
 import com.ekdev.habitapp.domain.usecase.goal_usecase.GetAllGoalUseCase
 import com.ekdev.habitapp.domain.usecase.goal_usecase.GetGoalUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.AddHabitUseCase
+import com.ekdev.habitapp.presentation.ui.custom_views.StepProgressView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,19 +53,22 @@ class GoalViewModel @Inject constructor(
     fun addGoalAndHabitUseCase(
         goalName: String,
         habitTitle: String,
-        habitPeriodType: PeriodType,
+        habitPeriodType: StepProgressView.StepEnum,
         onSuccess: () -> Unit,
         onError: (Throwable) -> Unit
     ) {
         viewModelScope.launch {
             try {
-
                 val goalID = addGoalUseCase(Goal(name = goalName, isCompleted = false))
                 addHabitUseCase(
                     Habit(
                         goalId = goalID.toInt(),
                         title = habitTitle,
-                        periodType = habitPeriodType
+                        periodType = when (habitPeriodType) {
+                            StepProgressView.StepEnum.STEP_21_DAYS -> PeriodType.STEP_21_DAYS
+                            StepProgressView.StepEnum.STEP_1_MONTH -> PeriodType.STEP_1_MONTH
+                            StepProgressView.StepEnum.STEP_3_MONTH -> PeriodType.STEP_3_MONTH
+                        }
                     )
                 )
                 onSuccess()
