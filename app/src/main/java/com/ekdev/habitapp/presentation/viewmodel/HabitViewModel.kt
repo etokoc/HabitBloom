@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ekdev.habitapp.domain.model.CardItem
 import com.ekdev.habitapp.domain.model.Habit
+import com.ekdev.habitapp.domain.model.HabitCount
 import com.ekdev.habitapp.domain.model.HabitWithLogs
 import com.ekdev.habitapp.domain.usecase.combined_useacase.GetCombinedCardsUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.AddHabitUseCase
@@ -13,6 +14,7 @@ import com.ekdev.habitapp.domain.usecase.habit_usecase.DeleteHabitUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.GetByIdHabitUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.GetHabitUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.GetHabitWithLogUseCase
+import com.ekdev.habitapp.domain.usecase.habit_usecase.GetTodayHabitCountUseCase
 import com.ekdev.habitapp.domain.usecase.habit_usecase.UpdateHabitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,7 +28,8 @@ class HabitViewModel @Inject constructor(
     private val updateHabitUseCase: UpdateHabitUseCase,
     private val getByIdHabitUseCase: GetByIdHabitUseCase,
     private val getHabitWithLogUseCase: GetHabitWithLogUseCase,
-    private val getCombinedCardsUseCase: GetCombinedCardsUseCase
+    private val getCombinedCardsUseCase: GetCombinedCardsUseCase,
+    private val getTodayHabitCountUseCase: GetTodayHabitCountUseCase
 ) :
     ViewModel() {
     private val _habits = MutableLiveData<List<Habit>>()
@@ -37,6 +40,9 @@ class HabitViewModel @Inject constructor(
     val habit: LiveData<Habit?> get() = _habit
     private val _cardItems = MutableLiveData<List<CardItem<*>>>()
     val cardItems: LiveData<List<CardItem<*>>> get() = _cardItems
+
+    private val _habitCount = MutableLiveData<HabitCount>()
+    val habitCount: LiveData<HabitCount> get() = _habitCount
 
     fun getHabits() {
         viewModelScope.launch {
@@ -77,6 +83,14 @@ class HabitViewModel @Inject constructor(
     fun loadCards() {
         viewModelScope.launch {
             _cardItems.postValue(getCombinedCardsUseCase())
+        }
+    }
+
+    fun getHabitCounts() {
+        viewModelScope.launch {
+            val habitCount = getTodayHabitCountUseCase()
+            _habitCount.value =
+                HabitCount(habitCount.totalCount ?: 0, habitCount.completedHabitCount ?: 0)
         }
     }
 }

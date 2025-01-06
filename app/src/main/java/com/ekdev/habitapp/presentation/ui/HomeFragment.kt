@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentHomeBinding
 import com.ekdev.habitapp.domain.model.CardItem
 import com.ekdev.habitapp.presentation.adapter.HomeListAdapter
@@ -24,6 +25,7 @@ class HomeFragment : BaseFragment() {
     private val goalViewModel by activityViewModels<GoalViewModel>()
     private lateinit var adapter: HomeListAdapter
     private lateinit var cardList: ArrayList<CardItem<*>>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,8 @@ class HomeFragment : BaseFragment() {
     private fun initData() {
         binding.apply {
             adapter = HomeListAdapter({ habit, isCompleted ->
-                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!,isCompleted)
+                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!, isCompleted)
+                refreshData()
             });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter
@@ -58,17 +61,33 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun refreshData() {
+        habitViewModel.getHabitCounts()
+        habitViewModel.loadCards()
+    }
+
     private fun initUI() {
         binding.apply {
             btnAddFab.setOnClickListener {
                 showAddHabitDialog()
             }
         }
+
         habitViewModel.cardItems.observe(this) {
             cardList.clear()
             cardList.addAll(it)
             adapter.submitList(cardList)
         }
+
+        habitViewModel.habitCount.observe(this) {
+            binding.tvHabitCount.text =
+                getString(R.string.habit_counts, it.completedHabitCount, it.totalCount)
+            val progress = it.completedHabitCount!!.toInt() * 100 / it.totalCount!!.toInt()
+            binding.customMainProgressBar.progressBar.progress = progress
+            binding.customMainProgressBar.tvProgressBar.text =
+                getString(R.string.progress_tv, progress)
+        }
+        habitViewModel.getHabitCounts()
         habitViewModel.loadCards()
     }
 
