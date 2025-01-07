@@ -86,7 +86,11 @@ class HomeFragment : BaseFragment() {
         habitViewModel.habitCount.observe(this) {
             binding.tvHabitCount.text =
                 getString(R.string.habit_counts, it.completedHabitCount, it.totalCount)
-            val progress = it.completedHabitCount!!.toInt() * 100 / it.totalCount!!.toInt()
+            val progress = if (it.totalCount != null && it.totalCount!! > 0) {
+                (it.completedHabitCount!!.toInt() * 100) / it.totalCount!!.toInt()
+            } else {
+                0
+            }
             binding.customMainProgressBar.progressBar.progress = progress
             binding.customMainProgressBar.tvProgressBar.text =
                 getString(R.string.progress_tv, progress)
