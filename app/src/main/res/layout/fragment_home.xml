@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
             android:layout_marginTop="18dp"
+            android:clipChildren="false"
             android:layout_marginRight="13dp"
             android:background="@color/page_bg_white">
 
@@ -23,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_bold"
-                android:text="Sun, 1 March 2024"
+                tools:text="Sun, 1 March 2024"
                 android:textColor="@color/main_black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,14 +35,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_bold"
-                android:text="Hello, Susy!"
+                android:layout_marginTop="16dp"
+
+                android:text="@string/small_habits_great_results"
                 android:textColor="@color/main_black"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
             <FrameLayout
                 android:id="@+id/banner"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +114,7 @@
                             android:layout_margin="0dp"
                             android:fontFamily="@font/nunito_medium"
                             android:includeFontPadding="false"
-                            android:text="completed today!"
+                            android:text="@string/completed_today"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
 
@@ -122,7 +126,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/banner"

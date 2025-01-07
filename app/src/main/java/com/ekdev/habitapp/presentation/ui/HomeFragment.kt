@@ -15,6 +15,9 @@ import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
 import com.ekdev.habitapp.presentation.viewmodel.HabitLogViewModel
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -71,6 +74,7 @@ class HomeFragment : BaseFragment() {
             btnAddFab.setOnClickListener {
                 showAddHabitDialog()
             }
+            tvDate.text = getTodayDateString()
         }
 
         habitViewModel.cardItems.observe(this) {
@@ -89,6 +93,13 @@ class HomeFragment : BaseFragment() {
         }
         habitViewModel.getHabitCounts()
         habitViewModel.loadCards()
+    }
+
+    private fun getTodayDateString(): CharSequence? {
+        val date = Date()
+        val format = SimpleDateFormat("EEE d MMMM yyyy", Locale.getDefault())
+        val formattedDate = format.format(date)
+        return formattedDate
     }
 
     private fun showAddHabitDialog() {
