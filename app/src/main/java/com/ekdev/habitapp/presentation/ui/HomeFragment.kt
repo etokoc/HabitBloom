@@ -42,11 +42,16 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         cardList = arrayListOf()
         initData()
         initUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshData()
     }
 
     private fun initData() {
@@ -77,13 +82,13 @@ class HomeFragment : BaseFragment() {
             tvDate.text = getTodayDateString()
         }
 
-        habitViewModel.cardItems.observe(this) {
-            cardList.clear()
-            cardList.addAll(it)
+        habitViewModel.cardItems.observe(viewLifecycleOwner) {
+            cardList = arrayListOf()
+            cardList = it as ArrayList<CardItem<*>>
             adapter.submitList(cardList)
         }
 
-        habitViewModel.habitCount.observe(this) {
+        habitViewModel.habitCount.observe(viewLifecycleOwner) {
             binding.tvHabitCount.text =
                 getString(R.string.habit_counts, it.completedHabitCount, it.totalCount)
             val progress = if (it.totalCount != null && it.totalCount!! > 0) {

@@ -96,7 +96,7 @@ class HomeListAdapter(
         override fun areContentsTheSame(
             oldItem: CardItem<*>, newItem: CardItem<*>
         ): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.dataList?.size == newItem.dataList?.size
         }
     }
 
