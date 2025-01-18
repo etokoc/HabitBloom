@@ -41,7 +41,7 @@ class HomeListAdapter(
 
             binding.seeAllButton.setOnClickListener {
                 isExpanded = !isExpanded
-                if (getItem(0).cardType == EnumCardType.TODAY_HABIT_CARD) {
+                if (getItem(position).cardType == EnumCardType.TODAY_HABIT_CARD) {
                     habitAdapter.setExpanded(isExpanded)
                 } else {
                     goalAdapter.setExpanded(isExpanded)

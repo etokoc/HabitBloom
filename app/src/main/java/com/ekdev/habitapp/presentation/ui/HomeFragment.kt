@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekdev.habitapp.R
 import com.ekdev.habitapp.databinding.FragmentHomeBinding
@@ -15,6 +16,7 @@ import com.ekdev.habitapp.presentation.viewmodel.GoalViewModel
 import com.ekdev.habitapp.presentation.viewmodel.HabitLogViewModel
 import com.ekdev.habitapp.presentation.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -47,18 +49,18 @@ class HomeFragment : BaseFragment() {
         cardList = arrayListOf()
         initData()
         initUI()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        refreshData()
+        lifecycleScope.launch {
+            refreshData()
+        }
     }
 
     private fun initData() {
         binding.apply {
             adapter = HomeListAdapter({ habit, isCompleted ->
-                habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!, isCompleted)
-                refreshData()
+                lifecycleScope.launch {
+                    habitLogViewModel.addOrUpdateHabitLog(habitId = habit.id!!, isCompleted)
+                    refreshData()
+                }
             });
             recyclerView.apply {
                 adapter = this@HomeFragment.adapter
@@ -69,7 +71,7 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun refreshData() {
+    private suspend fun refreshData() {
         habitViewModel.getHabitCounts()
         habitViewModel.loadCards()
     }
@@ -100,8 +102,6 @@ class HomeFragment : BaseFragment() {
             binding.customMainProgressBar.tvProgressBar.text =
                 getString(R.string.progress_tv, progress)
         }
-        habitViewModel.getHabitCounts()
-        habitViewModel.loadCards()
     }
 
     private fun getTodayDateString(): CharSequence? {

@@ -80,17 +80,14 @@ class HabitViewModel @Inject constructor(
         }
     }
 
-    fun loadCards() {
-        viewModelScope.launch {
-            _cardItems.postValue(getCombinedCardsUseCase())
-        }
+    suspend fun loadCards() {
+        _cardItems.postValue(getCombinedCardsUseCase())
+
     }
 
-    fun getHabitCounts() {
-        viewModelScope.launch {
-            val habitCount = getTodayHabitCountUseCase()
-            _habitCount.value =
-                HabitCount(habitCount.totalCount ?: 0, habitCount.completedHabitCount ?: 0)
-        }
+    suspend fun getHabitCounts() {
+        val habitCount = getTodayHabitCountUseCase()
+        _habitCount.value =
+            HabitCount(habitCount.totalCount ?: 0, habitCount.completedHabitCount ?: 0)
     }
 }
