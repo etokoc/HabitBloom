@@ -31,4 +31,6 @@
     <string name="progress_tv">%1$d%%</string>
     <string name="small_habits_great_results">Small <font color="#FFA450">habits</font>, great <font color="#37C871">results!</font></string>
     <string name="completed_today">completed today!</string>
+    <string name="progress">Progress</string>
+    <string name="habit_count">Habit Count</string>
 </resources>

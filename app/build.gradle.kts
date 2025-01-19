@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation("com.airbnb.android:lottie:3.4.0")
+
 }
 
 kapt {

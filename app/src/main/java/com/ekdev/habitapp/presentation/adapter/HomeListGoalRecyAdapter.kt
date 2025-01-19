@@ -38,6 +38,7 @@ class HomeListGoalAdapter(
                 btnDetail.root.setOnClickListener {
                     showDetailPopup(it, goal)
                 }
+                progressBar.progress = if (goal.isCompleted) 100 else 0
             }
         }
     }
