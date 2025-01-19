@@ -1,0 +1,63 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/home_list_item_bg"
+    android:paddingHorizontal="13dp"
+    android:paddingVertical="13dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/main_black"
+            android:textSize="16sp"
+            tools:text="Finish 5 Philosophy Books" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom__horizontal_progress_bar"
+            tools:progress="50" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_medium"
+            android:textColor="@color/main_black"
+            android:textSize="14sp"
+            tools:text="5 from 7 days target" />
+
+        <TextView
+            android:id="@+id/tvPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_medium"
+            android:textColor="@color/orange_end_color"
+            android:textSize="14sp"
+            android:text="@string/everyday" />
+
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/btnDetail"
+        layout="@layout/detail_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top" />
+
+
+</FrameLayout>

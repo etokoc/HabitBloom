@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ekdev.habitapp.presentation.ui.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+
+    <fragment
+        android:id="@+id/progressFragment"
+        android:name="com.ekdev.habitapp.presentation.ui.ProgressFragment"
+        android:label="Progress"
+        tools:layout="@layout/fragment_progress" />
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ekdev.habitapp.presentation.ui.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/successAddHabitFragment"
+        android:name="com.ekdev.habitapp.presentation.ui.SuccessAddHabitFragment"
+        android:label="fragment_success_add_habit"
+        tools:layout="@layout/fragment_success_add_habit" >
+        <action
+            android:id="@+id/action_successAddHabitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+</navigation>

@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Habit App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="see_all">See all</string>
+    <string name="see_less">See less</string>
+    <string name="add_item">add item</string>
+    <string name="create_new_habit_goal">Create New Habit Goal</string>
+    <string name="your_goal">Your Goal</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="habit_type">Habit Type</string>
+    <string name="period">Period</string>
+    <string name="create_new">Create New</string>
+    <string name="today_habit">Today Habit</string>
+    <string name="your_goals">Your Goals</string>
+    <string name="ok">OK</string>
+    <string name="done">Done!</string>
+    <string name="new_habit_goal_has_added_let_s_do_the_best_to_achieve_your_goal">New Habit Goal has added Let’s do the best to achieve your goal!</string>
+    <string name="settings">Settings</string>
+    <string name="account">Account</string>
+    <string name="term_and_condition">Term and Condition</string>
+    <string name="policy">Policy</string>
+    <string name="about_app">About App</string>
+    <string name="everyday">Everyday</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="_21_days">21 days</string>
+    <string name="_1_month">1 Month</string>
+    <string name="_3_months">3 Months</string>
+    <string name="habit_counts">%1$d of %2$d habits</string>
+    <string name="progress_tv">%1$d%%</string>
+    <string name="small_habits_great_results">Small <font color="#FFA450">habits</font>, great <font color="#37C871">results!</font></string>
+    <string name="completed_today">completed today!</string>
+    <string name="progress">Progress</string>
+    <string name="habit_count">Habit Count</string>
 </resources>

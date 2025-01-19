@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg_white"
+    tools:context=".presentation.ui.SettingsFragment">
+
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/PageTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/item_white_card_bg"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/SettingsItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_item_bg"
+            android:drawableEnd="@drawable/arrow_right"
+            android:text="@string/account" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/SettingsItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_item_bg"
+            android:drawableEnd="@drawable/arrow_right"
+            android:text="@string/term_and_condition" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/SettingsItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_item_bg"
+            android:drawableEnd="@drawable/arrow_right"
+            android:text="@string/policy" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/SettingsItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_item_bg"
+            android:drawableEnd="@drawable/arrow_right"
+            android:text="@string/about_app" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
