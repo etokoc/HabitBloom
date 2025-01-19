@@ -113,6 +113,13 @@ Habit Goal is an Android application designed to help users build and maintain h
 
 ---
 
+## Screens
+<div>
+  <img src="https://github.com/user-attachments/assets/d410cfba-32d7-44d4-8225-bbd024aa7e35" width="300"/>
+ <img src="https://github.com/user-attachments/assets/43d74009-32dc-4d78-ad9c-f6d044385d7f" width="300"/>
+ <img src="https://github.com/user-attachments/assets/8f1f1e11-1544-4caa-8c4d-5fd2c075e661" width="300"/>
+</div>
+
 ## Installation
 
 ### Prerequisites
