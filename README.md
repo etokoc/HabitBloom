@@ -23,21 +23,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-![logo-no-background](https://github.com/user-attachments/assets/9ffa8ff3-812c-4e7e-856b-34b69f13f250)
-
-  <h3 align="center">Best-README-Template</h3>
-
+  <img src="https://github.com/user-attachments/assets/9cde9668-5f96-4299-a1e8-8644846f6f68" width="200"/>
+  <br/>
+  <h3 align="center">HabitBLOOM</h3>
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    "One Step at a Time, Shape Your Habits!"
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
     &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
